@@ -40,7 +40,7 @@ app.get("/*", (req, res) => {
 })
 
 app.post('/tweets', (req, res) => {
-    const { state, requirements } = req.body;
+    let { state, requirements } = req.body;
     if (state == null || state.length === 0 || requirements.length === 0) {
         return res.send([])
     }
@@ -48,7 +48,10 @@ app.post('/tweets', (req, res) => {
     requirements.map(e => {
         final = final.concat(search_params[e])
     })
-    const q = { count: 60, q: `verified ${state[0].toLowerCase()} (${final.join(' OR ')}) -'not verified' -'arrange' -'unverified' -'needed' -'need' -'needs' -'required' -'require' -'want' -'wanted' -'requires' -'request' -'requirement' -'requirements'`, tweet_mode: 'extended' }
+    if (state[0].customOption) {
+        state[0] = state[0].label
+    }
+    const q = { count: 60, q: `verified ${state[0].toLowerCase()} (${final.join(' OR ')}) -'not verified' -'arrange' -'unverified' -'needed' -'need' -'needs' -'required' -'require' -'want' -'wanted' -'requires' -'request' -'requirement' -'requirements' -filter:links -filter:retweets`, tweet_mode: 'extended' }
     T.get('search/tweets', q, function (err, data, response) {
         const splittedArray = [];
         while (data.statuses.length > 0) {
