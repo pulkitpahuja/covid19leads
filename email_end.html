@@ -1,0 +1,25 @@
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><em><strong><img
+					src="https://image.flaticon.com/icons/png/512/3022/3022151.png" alt="" width="68"
+					height="68" /></strong></em></span></h1>
+<h1 style="text-align: center;"><span style="text-decoration: underline;"><strong>Notification</strong></span></h1>
+<p><strong>Notification from <a
+			href="https://covid19leads.herokuapp.com">https://covid19leads.herokuapp.com</a></strong></p>
+<p>Hi, we've found the centres where vaccines are avaiable according to the details provided:&nbsp;</p>
+<p>Pincode : {{pinCode}}&nbsp;</p>
+<p>Age Group : {{ageGroup}}&nbsp;</p>
+<a href={{link}}>To unsubscribe click here</a>
+<table style="border: 1px solid #000;border-collapse: collapse;">
+	<thead style="border: 1px solid #000">
+		<tr>
+			{{#each headers}}
+			<th style="border: 1px solid #000">
+				{{this}}
+			</th>
+			{{/each}}
+		</tr>
+	</thead>
+	<tbody>
+		{{{table}}}
+	</tbody>
+
+</table>
