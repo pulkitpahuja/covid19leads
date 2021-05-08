@@ -104,7 +104,7 @@ app.post('/tweets', (req, res) => {
 
 var options = {
     headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
 }
 
@@ -212,7 +212,6 @@ cron.schedule('0 0 */1 * * *', () => {
             const { pinCode, ageGroup, email } = user;
             request.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pinCode}&date=${moment().format("DD-MM-yyyy")}`
                 , options, function (error, response, body) {
-                    console.log(body)
                     const data = createData(JSON.parse(body)["centers"], ageGroup[0])
                     if (data.length > 0) {
                         sendEmail(data, email, pinCode, ageGroup).then(stat => {
