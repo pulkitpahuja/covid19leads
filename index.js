@@ -104,7 +104,7 @@ app.post('/tweets', (req, res) => {
 
 var options = {
     headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
 }
 
@@ -211,7 +211,7 @@ cron.schedule('0 0 */1 * * *', () => {
         for (var user of result) {
             const { pinCode, ageGroup, email } = user;
             request.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pinCode}&date=${moment().format("DD-MM-yyyy")}`
-                , function (error, response, body) {
+                , options, function (error, response, body) {
                     console.log(body)
                     const data = createData(JSON.parse(body)["centers"], ageGroup[0])
                     if (data.length > 0) {
@@ -232,8 +232,8 @@ app.post('/vaccinated', (req, res) => {
     }
     if (type == "now") {
         request.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pinCode}&date=${moment().format("DD-MM-yyyy")}`
-            , function (error, response, body) {
-                console.log(body,response)
+            , options, function (error, response, body) {
+                console.log(body, response)
                 const data = createData(JSON.parse(body)["centers"], ageGroup)
                 if (data.length > 0) {
                     sendEmail(data, email, pinCode, ageGroup).then(stat => {
