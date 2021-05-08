@@ -175,7 +175,7 @@ const sendEmail = (data, email, pinCode, ageGroup) => {
             "status": true
         };
         const encrypted = key.encrypt(JSON.stringify(encrypt), 'base64');
-        const uri = `http://localhost:3000/unsubscribe/${email}/${encodeURIComponent(encrypted)}`;
+        const uri = `https://covid19leads.herokuapp.com/unsubscribe/${email}/${encodeURIComponent(encrypted)}`;
         readHTMLFile(__dirname + '/email_end.html', (err, html) => {
             var template = handlebars.compile(html);
             var replacements = {
@@ -231,7 +231,7 @@ app.post('/vaccinated', (req, res) => {
     }
     if (type == "now") {
         request.get(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pinCode}&date=${moment().format("DD-MM-yyyy")}`
-            , options, function (error, response, body) {
+            , function (error, response, body) {
                 const data = createData(JSON.parse(body)["centers"], ageGroup)
                 if (data.length > 0) {
                     sendEmail(data, email, pinCode, ageGroup).then(stat => {
