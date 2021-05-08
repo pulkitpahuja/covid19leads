@@ -27,6 +27,7 @@ client.connect((err, db) => {
 app.use(express.static(path.join(__dirname, '/build')))
 
 
+console.log(process.env.mail,process.env.pass)
 var alert_transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
