@@ -34,7 +34,7 @@
     "concurrently": "^6.0.2"
   },
   "scripts": {
-    "start": "node --max-old-space-size=8192 index.js",
+    "start": "npm install && node index.js",
     "client": "cd covid-app && npm start",
     "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
